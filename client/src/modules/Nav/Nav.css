@@ -1,0 +1,29 @@
+.Nav {
+    flex-grow: 1;
+
+    max-width: 15%;
+    height: 100%;
+
+    background-color: rgb(50, 50, 50);
+
+    border-right: 1px solid rgb(69,69,69);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.Nav div{
+    cursor: default;
+    padding: 5%;
+    width: 90%;
+    border-right: 1px solid rgb(69,69,69);
+}
+.Nav div:hover {
+    background-color: rgb(55, 55, 55);
+}
+.Nav .selected {
+    font-weight: bold;
+    background-color: rgb(45, 45, 45);
+}

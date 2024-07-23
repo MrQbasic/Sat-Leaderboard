@@ -1,0 +1,32 @@
+.Login{
+    position: absolute;
+    z-index: 10;
+
+    right: 0;
+    top: 60px;
+    margin-left: auto;
+    width: auto;
+    padding: 2%;
+    
+    background-color: rgb(50, 50, 50);
+    
+    border-bottom-left-radius: 12px;
+    border-color: rgb(69,69,69);
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-left-style: solid;
+    border-left-width: 2px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.Login input {
+    color: black
+}
+.Login .Submit {
+    margin-top: 10px;
+    padding-block: 3%;
+    color: black
+}

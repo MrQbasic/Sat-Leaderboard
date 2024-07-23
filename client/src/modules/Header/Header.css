@@ -1,0 +1,76 @@
+.Header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    position: relative;
+    margin: 0;
+
+    width: 100%;
+    height: 60px;
+
+    background-color: rgb(69,69,69);
+}
+
+
+.Header h1 {
+    display: flex;
+    align-items: center;
+    height: auto;
+    font-size: x-large;
+    padding: 1.25%;
+    padding-block: auto ;
+    margin: 0;
+}
+
+.Header .navToggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    padding: 1.25%;
+    background-color: transparent;
+    border: none;
+    color: rgb(200,200,200);
+    cursor: default;
+}
+
+.Header .down {
+    transform: rotate(-90deg);
+    transition: all 0.1s linear;
+}
+.Header .left {
+    transform: rotate(0deg);
+    transition: all 0.1s linear;
+}
+
+.Header img {
+    filter: invert(1);
+    padding: 1.25%
+}
+
+.Header button {
+    border-color: white;
+    padding-block: 1%;
+    padding-inline: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: auto;
+    margin-block: 0.5%;
+    margin-right: 1%;
+    padding: auto;
+    background-color: transparent;
+    border-style: solid;
+    border-radius: 5px;
+}
+.Header button:hover{
+    background-color: rgb(79,79,79);
+}
+.Header .selected {
+    background-color: rgb(255, 140, 0);
+}
+
+.Header img {
+    height: 20px;
+}
