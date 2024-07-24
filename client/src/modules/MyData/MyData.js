@@ -77,8 +77,10 @@ function MyData(){
                 <select onChange={(event)=>{setUpSat(event.target.value)}} >
                     <option value="" disabled selected>Select a Satellite</option>
                     <option value="meteor_hrpt">Meteor - HRPT</option>
+                    <option value="meteor_m2-x_lrpt">Meteor M2-x - LRPT</option>
                     <option value="metop_ahrtp">Metop - AHRPT</option>
                     <option value="noaa_hrpt">Noaa - HRPT</option>   
+                    <option value="noaa_apt">Noaa - APT(wav)</option>   
                 </select>
                 <input type={"file"} onChange={(event)=>{setUpFile(event.target.files)}}/>
                 <button disabled={(upFile === undefined)||(upSat === "")} onClick={()=>{uploadFile(upFile, upSat, setUploadProgress)}}>Upload</button>

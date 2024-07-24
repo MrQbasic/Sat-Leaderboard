@@ -49,9 +49,17 @@ async function decode(){
                 band = "L";
                 dataType = "cadu"
                 break;
+            case "meteor_m2-x_lrpt":
+                band = "VHF";
+                dataType = "cadu";
+                break;
             case "noaa_hrpt":
                 band = "L";
                 dataType = "frames";
+                break;
+            case "noaa_apt":
+                band = "VHF";
+                dataType = "audio_wav";
                 break;
             case "metop_ahrpt":
                 band = "L";
@@ -65,14 +73,21 @@ async function decode(){
         var date = timestampToString(dataset.timestamp);
         //check size
         var size
+        var dim
         switch(task.satType){
+            case "noaa_apt":
+                dim = await sizeOf(folder+"/raw.png")
+                console.log(dim)
+                size = dim.height;
+                break 
             case "noaa_hrpt":
             case "metop_ahrpt":
-                const dim = await sizeOf(folder+"/AVHRR/AVHRR-1.png")
+                dim = await sizeOf(folder+"/AVHRR/AVHRR-1.png")
                 console.log(dim)
                 size = dim.height;
                 break;
             case "meteor_hrpt":
+            case "meteor_m2-x_lrpt":
                 size = await sizeOf(folder+"/MSU-MR/MSU-MR-1.png").height
                 console.log(size)
                 break;

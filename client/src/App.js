@@ -7,6 +7,7 @@ import Nav from './modules/Nav/Nav.js';
 import Login from './modules/Login/Login.js';
 import MyData from './modules/MyData/MyData.js';
 import Leaderboard from './modules/Leaderboard/Leaderboard.js';
+import About from './modules/About/About.js';
 
 import axios from "axios"
 
@@ -53,8 +54,9 @@ function App() {
 
       <div className="Main">
         { displayNav ? (<Nav navPos={mainWindow}/>):(<></>)}
-        { loggedIn && mainWindow==1 ? (<MyData/>):(<></>)}
         { mainWindow==0 ? (<Leaderboard/>):(<></>)}
+        { loggedIn && mainWindow==1 ? (<MyData/>):(<></>)}
+        { mainWindow==2 ? (<About/>):(<></>)}
       </div>
 
     </div>
