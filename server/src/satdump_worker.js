@@ -1,10 +1,9 @@
 import { dbPath } from "./actions/FileUpload.js";
 import { executeQuery } from "./sql.js";
 
-import { exec, execSync } from "child_process"
+import { execSync } from "child_process"
 import fs, { access } from "fs";
 import sizeOf from "image-size";
-import { stdin } from "process";
 
 function timestampToString(timestamp) {
     if (timestamp < 0) timestamp = 0;
@@ -28,6 +27,10 @@ function timestampToString(timestamp) {
     return formattedDate;
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 var running = false;
 
 async function decode(){
@@ -37,7 +40,8 @@ async function decode(){
     const tasks = await executeQuery("SELECT * FROM SatData WHERE status=0");
     console.log(tasks);
     //work on em all
-    tasks.forEach(async(task, index) => {
+    for(var i=0; i<tasks.length; i++){
+        const task = tasks[i];
         //change Status
         await executeQuery("UPDATE SatData SET status=1 WHERE dataID=(?)", [task.dataID])
         //decode
@@ -88,16 +92,19 @@ async function decode(){
                 break;
             case "meteor_hrpt":
             case "meteor_m2-x_lrpt":
-                size = await sizeOf(folder+"/MSU-MR/MSU-MR-1.png").height
-                console.log(size)
+                dim = await sizeOf(folder+"/MSU-MR/MSU-MR-1.png")
+                console.log(dim)
+                size = dim.height;
                 break;
             default:
                 size = 0;
         }
-        executeQuery("UPDATE SatData SET length=(?) WHERE dataID=(?)", [size, task.dataID])
+        await executeQuery("UPDATE SatData SET length=(?) WHERE dataID=(?)", [size, task.dataID])
         //write back to database
-        executeQuery("UPDATE SatData SET sat=(?), status=2, date=(?), band=(?) WHERE dataID=(?)", [sat, date, band, task.dataID])  
-    })
+        await executeQuery("UPDATE SatData SET sat=(?), status=2, date=(?), band=(?) WHERE dataID=(?)", [sat, date, band, task.dataID])
+        console.log("TAF")
+        sleep(1000);
+    }
     //reset
     setTimeout(()=>{running=false}, 1000);
 }

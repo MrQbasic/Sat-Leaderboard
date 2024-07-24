@@ -3,13 +3,13 @@ import "./MyData.css"
 
 import { useEffect, useState } from "react";
 
+import removeIcon from "./remove.png";
 
-function upDateMyData(setMySatData){
+function updateMyData(setMySatData){
     const clientToken = localStorage.getItem("clientToken")
     if(clientToken === undefined || clientToken === "") return;
     //get the data
     axios.post("http://leons-ideen.de:3001/api/myData", {clientToken: clientToken}).then((res) => {
-        console.log(res.data)
         setMySatData(res.data)
     })
 }
@@ -35,6 +35,13 @@ function uploadFile(file, sat, setProgress){
     })
 }
 
+function removeData(dataID, callBack){
+    //get clientToken
+    const clientToken = localStorage.getItem("clientToken");
+    if(clientToken === undefined || clientToken === "") return;
+    //send request
+    axios.post("http://leons-ideen.de:3001/api/remove", {dataID: dataID, clientToken: clientToken}).then(callBack);
+}
 
 const listCategories = [["Satellite","sat"],["Date of Data", "date"],["Size", "length"],["Antenna", "antenna"], ["Band", "band"], ["Status", "status"]]
 const statusMap = ["Uploaded", "In Work", "Done"]
@@ -48,7 +55,7 @@ function MyData(){
     const [uploadProgress, setUploadProgress] = useState(0);
 
     useEffect(()=>{
-        upDateMyData(setMySatData)
+        updateMyData(setMySatData)
     }, []);
 
     return(
@@ -56,22 +63,33 @@ function MyData(){
         <h1>My Uploads</h1>
         <div className="body"> 
             <div className="Uploads">
-                <div className="List">
-                    {listCategories.map((col, index)=>(
-                        <div className="ListCol">
-                            <h4>{col[0]}</h4>
-                            {mySatData.map((data, index)=>(
-                                <p>
-                                    { col[0] === "Status" ? (
-                                        statusMap[data[col[1]]] 
+                <table>
+                    <tr>
+                        {listCategories.map((category, index)=>(
+                            <th>{category[0]}</th>
+                        ))}
+                    </tr>
+                    {mySatData.map((data, index)=>(
+                        <tr>
+                            {listCategories.map((category, index)=>(
+                                <td>
+                                    { category[0] === "Status" ? (
+                                        <div className="status">
+                                            {statusMap[data[category[1]]]}
+                                            {data[category[1]]===2 ? (
+                                                <div className="options">
+                                                    <img className="deleteButton" src={removeIcon} onClick={()=>{removeData(data.dataID, ()=>{updateMyData(setMySatData)})}}/>
+                                                </div>
+                                            ):(<></>)}
+                                        </div>
                                     ):(
-                                        data[col[1]]!==null ? (data[col[1]]):("-")
+                                        data[category[1]]!==null ? (data[category[1]]):("-")
                                     )}
-                                </p>
+                                </td>
                             ))}
-                        </div>
+                        </tr>
                     ))}
-                </div>
+                </table>
             </div>
             <div className="New">
                 <select onChange={(event)=>{setUpSat(event.target.value)}} >

@@ -1,0 +1,17 @@
+.About {
+    flex-grow: 1;
+    background-color: rgb(40, 40, 40);
+}
+
+.About > h1 {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-block: 10px;
+    margin-top: 0;
+    border-bottom: 1px solid white;
+}
+
+.About  div {
+    padding-inline: 5%;
+}

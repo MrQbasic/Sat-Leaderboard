@@ -16,27 +16,34 @@
     display: flex;
     flex-direction: row;
 }
-
 .MyData .Uploads{
     width: 60%;
     padding-inline: 5%;
 }
 
-.MyData .List{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-.MyData .ListCol {
-    flex-grow: 1;
-}
 
-.MyData .List h4, .MyData .List p {
-    margin: 0;
-    padding-block: 5px;
+
+.MyData .Uploads table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.MyData .Uploads th{
+    text-align: left;
+}
+.MyData .Uploads tr{
     border-bottom: 1px solid white;
     overflow: hidden;
 }
+.MyData .Uploads .status{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 5%;
+    align-items: center;
+}
+
+
+
 
 .MyData .New{
     display: flex;
@@ -48,8 +55,25 @@
     margin-bottom: 2.5%;
     color: black;
 }
-
-
 .MyData select{
     color: black;
+}
+
+
+.MyData .Uploads table img:hover {
+    filter: invert(16%) sepia(68%) saturate(6464%) hue-rotate(5deg) brightness(108%) contrast(132%);
+    border: 1px solid red;
+}
+.MyData .Uploads table img{
+    filter: invert(100%);
+    border: 1px solid black; 
+    border-radius: 5px;
+}
+
+.MyData .Uploads table .options {
+    flex-shrink: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 4px;
 }

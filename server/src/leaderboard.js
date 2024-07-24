@@ -22,6 +22,9 @@ routeMyData(leaderboard);
 import routeLeaderboard from "./actions/Leaderboard.js";
 routeLeaderboard(leaderboard);
 
+import routeRemove from "./actions/Remove.js";
+routeRemove(leaderboard);
+
 import installSatdump from "./satdump.js"
 installSatdump();
 
